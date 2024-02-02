@@ -18,5 +18,5 @@ def test_get_regions_json(client):
     """
     response = client.get("/regions")
     assert response.headers["Content-Type"] == "application/json"
-    tonga = {'NOC': 'TGA', 'notes': None, 'region': 'Tonga'}
+    tonga = {'NOC': 'TGA', 'notes': '', 'region': 'Tonga'}
     assert tonga in response.json
