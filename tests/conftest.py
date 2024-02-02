@@ -62,3 +62,10 @@ def new_region(app):
         if region_exists:
             db.session.delete(new_region)
             db.session.commit()
+
+
+from paralympics.schemas import EventSchema
+event_schema = EventSchema()
+
+#@pytest.fixture(scope='function')
+#def new_event(app):

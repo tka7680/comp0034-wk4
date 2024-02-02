@@ -111,3 +111,66 @@ def test_delete_region(client, new_region):
     response = client.delete(f"/regions/{code}")
     assert response.status_code == 200
     assert response.json['message'] == 'Region NEW deleted'
+
+
+
+def test_get_events_status_code(client):
+    response = client.get("/events")
+    assert response.status_code == 200
+
+def test_get_events_json(client):
+    response = client.get("/events")
+    assert response.headers["Content-Type"] == "application/json"
+    #tonga = {'NOC': 'TGA', 'notes': '', 'region': 'Tonga'}
+    italy = {
+        "NOC": "ITA",
+        "countries": "23",
+        "country": "Italy",
+        "disabilities_included": "Spinal injury",
+        "duration": 7,
+        "end": "25/09/1960",
+        "events": 113,
+        "highlights": "First Games with a disability held in same venues as Olympic Games",
+        "host": "Rome",
+        "id": 1,
+        "participants": 209,
+        "participants_f": None,
+        "participants_m": None,
+        "region": "ITA",
+        "sports": 8,
+        "start": "18/09/1960",
+        "type": "summer",
+        "year": 1960
+    }
+    #assert tonga in response.json
+    assert italy in response.json
+
+
+def test_get_specified_event(client):
+    #and_json = {'NOC': 'AND', 'notes': '', 'region': 'Andorra'}
+    isr_json = {
+        "NOC": "ISR",
+        "countries": "29",
+        "country": "Israel",
+        "disabilities_included": "Spinal injury",
+        "duration": 9,
+        "end": "14/11/1968",
+        "events": 188,
+        "highlights": "Lawn Bowls added as a sport",
+        "host": "Tel Aviv",
+        "id": 3,
+        "participants": 774,
+        "participants_f": 196,
+        "participants_m": 578,
+        "region": "ISR",
+        "sports": 10,
+        "start": "05/11/1968",
+        "type": "summer",
+        "year": 1968
+    }
+
+    response = client.get("/events/3")
+    assert response.headers["Content-Type"] == "application/json"
+    assert response.status_code == 200
+    #assert response.json == and_json
+    assert response.json == isr_json
